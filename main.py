@@ -69,9 +69,9 @@ operation = None
 last_operand = None
 new_input = False
 
-def convert_to_float(s):
+def convert_to_float(num):
     try:
-        return float(s)
+        return float(num)
     except:
         return None
 
@@ -103,7 +103,7 @@ def button_click(number):
         e.delete(0, END)
         e.insert(0, str(current) + str(number))
 
-def button_C():
+def button_C_function():
     global f_num, operation, last_operand, new_input
     f_num = 0.0
     operation = None
@@ -111,12 +111,12 @@ def button_C():
     new_input = False
     e.delete(0, END)
 
-def button_CE():
+def button_CE_function():
     global new_input
     e.delete(0, END)
     new_input = False
 
-def button_bs():
+def button_bs_function():
     global new_input
     current = e.get()
     if current == "Error":
@@ -127,7 +127,7 @@ def button_bs():
     e.insert(0, current[:-1])
     new_input = False
 
-def button_dot():
+def button_dot_function():
     global new_input
     current = e.get()
     if current == "Error":
@@ -141,7 +141,7 @@ def button_dot():
     if "." not in current:
         e.insert(END, ".")
 
-def button_negate():
+def button_negate_function():
     value = convert_to_float(e.get())
     if value is None:
         set_display("Error")
@@ -166,8 +166,8 @@ def calculate(a, op, b):
 def set_operation(op):
     global f_num, operation, last_operand, new_input
 
-    cur = e.get()
-    cur_val = convert_to_float(cur) if cur != "" and cur != "Error" else None
+    current = e.get()
+    cur_val = convert_to_float(current) if current != "" and current != "Error" else None
 
     if cur_val is None:
         if operation is not None:
@@ -195,33 +195,33 @@ def set_operation(op):
     e.delete(0, END)
     new_input = False
 
-def button_add():
+def button_add_function():
     set_operation("addition")
 
-def button_subtract():
+def button_subtract_function():
     set_operation("subtraction")
 
-def button_multiply():
+def button_multiply_function():
     set_operation("multiplication")
 
-def button_divide():
+def button_divide_function():
     set_operation("division")
 
-def button_power():
+def button_power_function():
     set_operation("power")
 
-def button_mod():
+def button_mod_function():
     set_operation("modulus")
 
-def button_equal():
+def button_equal_function():
     global f_num, operation, last_operand, new_input
 
     if operation is None:
         return
 
-    cur = e.get()
+    current = e.get()
 
-    if cur == "" or cur == "Error":
+    if current == "" or current == "Error":
         if last_operand is None:
             b = f_num
             last_operand = b
@@ -231,7 +231,7 @@ def button_equal():
         if new_input and last_operand is not None:
             b = last_operand
         else:
-            b = convert_to_float(cur)
+            b = convert_to_float(current)
             if b is None:
                 set_display("Error")
                 operation = None
@@ -248,42 +248,42 @@ def button_equal():
         last_operand = None
         new_input = True
 
-def button_square():
+def button_square_function():
     value = convert_to_float(e.get())
     if value is None:
         set_display("Error")
         return
     set_display(value ** 2)
 
-def button_square_root():
+def button_square_root_function():
     value = convert_to_float(e.get())
     if value is None or value < 0:
         set_display("Error")
         return
     set_display(math.sqrt(value))
 
-def button_reciprocal():
+def button_reciprocal_function():
     value = convert_to_float(e.get())
     if value is None or value == 0:
         set_display("Error")
         return
     set_display(1 / value)
 
-def button_log():
+def button_log_function():
     value = convert_to_float(e.get())
     if value is None or value <= 0:
         set_display("Error")
         return
     set_display(math.log10(value))
 
-def button_ln():
+def button_ln_function():
     value = convert_to_float(e.get())
     if value is None or value <= 0:
         set_display("Error")
         return
     set_display(math.log(value))
 
-def button_sin():
+def button_sin_function():
     value = convert_to_float(e.get())
     if value is None:
         set_display("Error")
@@ -295,7 +295,7 @@ def button_sin():
     set_display(math.sin(value))
 
 
-def button_cos():
+def button_cos_function():
     value = convert_to_float(e.get())
     if value is None:
         set_display("Error")
@@ -307,7 +307,7 @@ def button_cos():
     set_display(math.cos(value))
 
 
-def button_tan():
+def button_tan_function():
     value = convert_to_float(e.get())
     if value is None:
         set_display("Error")
@@ -319,7 +319,7 @@ def button_tan():
     set_display(math.tan(value))
 
 
-def button_ctg():
+def button_ctg_function():
     value = convert_to_float(e.get())
     if value is None:
         set_display("Error")
@@ -335,7 +335,7 @@ def button_ctg():
 
     set_display(1 / t)
 
-def button_fact():
+def button_fact_function():
     try:
         n = int(float(e.get()))
         if n < 0:
@@ -344,7 +344,7 @@ def button_fact():
     except:
         set_display("Error")
 
-def button_percent():
+def button_percent_function():
     global f_num, operation
     value = convert_to_float(e.get())
     if value is None:
@@ -358,17 +358,17 @@ def button_percent():
         else:
             set_display(value / 100)
 
-def button_abs():
+def button_abs_function():
     value = convert_to_float(e.get())
     if value is None:
         set_display("Error")
         return
     set_display(abs(value))
 
-def button_pi():
+def button_pi_function():
     set_display(math.pi)
 
-def button_e():
+def button_e_function():
     set_display(math.e)
 
 button_1 = Button(frame_standard, text="1", padx=40, pady=20, command=lambda: button_click(1))
@@ -382,139 +382,141 @@ button_8 = Button(frame_standard, text="8", padx=40, pady=20, command=lambda: bu
 button_9 = Button(frame_standard, text="9", padx=40, pady=20, command=lambda: button_click(9))
 button_0 = Button(frame_standard, text="0", padx=40, pady=20, command=lambda: button_click(0))
 
-button_add_btn = Button(frame_standard, text="+", padx=40, pady=20, command=button_add)
-button_sub_btn = Button(frame_standard, text="-", padx=40, pady=20, command=button_subtract)
-button_mul_btn = Button(frame_standard, text="*", padx=40, pady=20, command=button_multiply)
-button_div_btn = Button(frame_standard, text="/", padx=40, pady=20, command=button_divide)
-button_equal_btn = Button(frame_standard, text="=", padx=40, pady=20, command=button_equal)
+button_add = Button(frame_standard, text="+", padx=40, pady=20, command=button_add_function)
+button_sub = Button(frame_standard, text="-", padx=40, pady=20, command=button_subtract_function)
+button_mul = Button(frame_standard, text="*", padx=40, pady=20, command=button_multiply_function)
+button_div = Button(frame_standard, text="/", padx=40, pady=20, command=button_divide_function)
+button_equal = Button(frame_standard, text="=", padx=40, pady=20, command=button_equal_function)
 
-button_C_btn = Button(frame_standard, text="C", padx=40, pady=20, command=button_C)
-button_CE_btn = Button(frame_standard, text="CE", padx=40, pady=20, command=button_CE)
-button_bsci_btn = Button(frame_standard, text="bs", padx=40, pady=20, command=button_bs)
-button_percent_btn = Button(frame_standard, text="%", padx=40, pady=20, command=button_percent)
+button_C = Button(frame_standard, text="C", padx=40, pady=20, command=button_C_function)
+button_CE = Button(frame_standard, text="CE", padx=40, pady=20, command=button_CE_function)
+button_bs_scientific = Button(frame_standard, text="<-", padx=40, pady=20, command=button_bs_function)
+button_percent = Button(frame_standard, text="%", padx=40, pady=20, command=button_percent_function)
 
-button_recip_btn = Button(frame_standard, text="1/x", padx=40, pady=20, command=button_reciprocal)
-button_square_btn = Button(frame_standard, text="x²", padx=40, pady=20, command=button_square)
-button_sqrt_btn = Button(frame_standard, text="√", padx=40, pady=20, command=button_square_root)
+button_reciprocal = Button(frame_standard, text="1/x", padx=40, pady=20, command=button_reciprocal_function)
+button_square = Button(frame_standard, text="x²", padx=40, pady=20, command=button_square_function)
+button_sqrt = Button(frame_standard, text="√", padx=40, pady=20, command=button_square_root_function)
 
-button_neg_btn = Button(frame_standard, text="+/-", padx=40, pady=20, command=button_negate)
-button_dot_btn = Button(frame_standard, text=".", padx=40, pady=20, command=button_dot)
+button_neg = Button(frame_standard, text="+/-", padx=40, pady=20, command=button_negate_function)
+button_dot = Button(frame_standard, text=".", padx=40, pady=20, command=button_dot_function)
 
-button_pi_const = Button(frame_scientific, text="π", padx=40, pady=20, command=button_pi)
-button_e_const = Button(frame_scientific, text="e", padx=40, pady=20, command=button_e)
+button_pi = Button(frame_scientific, text="π", padx=40, pady=20, command=button_pi_function)
+button_e = Button(frame_scientific, text="e", padx=40, pady=20, command=button_e_function)
 
-button_percent_btn.grid(row=1, column=0, sticky="nsew")
-button_CE_btn.grid(row=1, column=1, sticky="nsew")
-button_C_btn.grid(row=1, column=2, sticky="nsew")
-button_bsci_btn.grid(row=1, column=3, sticky="nsew")
+button_percent.grid(row=1, column=0, sticky="nsew")
+button_CE.grid(row=1, column=1, sticky="nsew")
+button_C.grid(row=1, column=2, sticky="nsew")
+button_bs_scientific.grid(row=1, column=3, sticky="nsew")
 
-button_recip_btn.grid(row=2, column=0, sticky="nsew")
-button_square_btn.grid(row=2, column=1, sticky="nsew")
-button_sqrt_btn.grid(row=2, column=2, sticky="nsew")
-button_div_btn.grid(row=2, column=3, sticky="nsew")
+button_reciprocal.grid(row=2, column=0, sticky="nsew")
+button_square.grid(row=2, column=1, sticky="nsew")
+button_sqrt.grid(row=2, column=2, sticky="nsew")
+button_div.grid(row=2, column=3, sticky="nsew")
 
 button_7.grid(row=3, column=0, sticky="nsew")
 button_8.grid(row=3, column=1, sticky="nsew")
 button_9.grid(row=3, column=2, sticky="nsew")
-button_mul_btn.grid(row=3, column=3, sticky="nsew")
+button_mul.grid(row=3, column=3, sticky="nsew")
 
 button_4.grid(row=4, column=0, sticky="nsew")
 button_5.grid(row=4, column=1, sticky="nsew")
 button_6.grid(row=4, column=2, sticky="nsew")
-button_sub_btn.grid(row=4, column=3, sticky="nsew")
+button_sub.grid(row=4, column=3, sticky="nsew")
 
 button_1.grid(row=5, column=0, sticky="nsew")
 button_2.grid(row=5, column=1, sticky="nsew")
 button_3.grid(row=5, column=2, sticky="nsew")
-button_add_btn.grid(row=5, column=3, sticky="nsew")
+button_add.grid(row=5, column=3, sticky="nsew")
 
-button_neg_btn.grid(row=6, column=0, sticky="nsew")
+button_neg.grid(row=6, column=0, sticky="nsew")
 button_0.grid(row=6, column=1, sticky="nsew")
-button_dot_btn.grid(row=6, column=2, sticky="nsew")
-button_equal_btn.grid(row=6, column=3, sticky="nsew")
+button_dot.grid(row=6, column=2, sticky="nsew")
+button_equal.grid(row=6, column=3, sticky="nsew")
 
-sci_percent = Button(frame_scientific, text="%", padx=40, pady=20, command=button_percent)
-sci_CE = Button(frame_scientific, text="CE", padx=40, pady=20, command=button_CE)
-sci_C = Button(frame_scientific, text="C", padx=40, pady=20, command=button_C)
-sci_bs = Button(frame_scientific, text="bs", padx=40, pady=20, command=button_bs)
+scientific_percent = Button(frame_scientific, text="%", padx=40, pady=20, command=button_percent_function)
+scientific_CE = Button(frame_scientific, text="CE", padx=40, pady=20, command=button_CE_function)
+scientific_C = Button(frame_scientific, text="C", padx=40, pady=20, command=button_C_function)
+scientific_bs = Button(frame_scientific, text="bs", padx=40, pady=20, command=button_bs_function)
 
-sci_sin = Button(frame_scientific, text="sin", padx=40, pady=20, command=button_sin)
-sci_cos = Button(frame_scientific, text="cos", padx=40, pady=20, command=button_cos)
-sci_tan = Button(frame_scientific, text="tan", padx=40, pady=20, command=button_tan)
-sci_ctg = Button(frame_scientific, text="ctg", padx=40, pady=20, command=button_ctg)
+scientific_sin = Button(frame_scientific, text="sin", padx=40, pady=20, command=button_sin_function)
+scientific_cos = Button(frame_scientific, text="cos", padx=40, pady=20, command=button_cos_function)
+scientific_tan = Button(frame_scientific, text="tan", padx=40, pady=20, command=button_tan_function)
+scientific_ctg = Button(frame_scientific, text="ctg", padx=40, pady=20, command=button_ctg_function)
 
-sci_log = Button(frame_scientific, text="log", padx=40, pady=20, command=button_log)
-sci_ln  = Button(frame_scientific, text="ln",  padx=40, pady=20, command=button_ln)
-sci_pow = Button(frame_scientific, text="xʸ", padx=40, pady=20, command=button_power)
-sci_mod = Button(frame_scientific, text="mod", padx=40, pady=20, command=button_mod)
+scientific_log = Button(frame_scientific, text="log", padx=40, pady=20, command=button_log_function)
+scientific_ln  = Button(frame_scientific, text="ln", padx=40, pady=20, command=button_ln_function)
+scientific_pow = Button(frame_scientific, text="xʸ", padx=40, pady=20, command=button_power_function)
+scientific_mod = Button(frame_scientific, text="mod", padx=40, pady=20, command=button_mod_function)
 
-sci_abs = Button(frame_scientific, text="abs", padx=40, pady=20, command=button_abs)
-sci_fact = Button(frame_scientific, text="fact", padx=40, pady=20, command=button_fact)
-sci_recip = Button(frame_scientific, text="1/x", padx=40, pady=20, command=button_reciprocal)
-sci_div = Button(frame_scientific, text="/", padx=40, pady=20, command=button_divide)
+scientific_abs = Button(frame_scientific, text="abs", padx=40, pady=20, command=button_abs_function)
+scientific_fact = Button(frame_scientific, text="fact", padx=40, pady=20, command=button_fact_function)
+scientific_reciprocal = Button(frame_scientific, text="1/x", padx=40, pady=20, command=button_reciprocal_function)
+scientific_div = Button(frame_scientific, text="/", padx=40, pady=20, command=button_divide_function)
 
-sci_7 = Button(frame_scientific, text="7", padx=40, pady=20, command=lambda: button_click(7))
-sci_8 = Button(frame_scientific, text="8", padx=40, pady=20, command=lambda: button_click(8))
-sci_9 = Button(frame_scientific, text="9", padx=40, pady=20, command=lambda: button_click(9))
-sci_mul = Button(frame_scientific, text="*", padx=40, pady=20, command=button_multiply)
+scientific_7 = Button(frame_scientific, text="7", padx=40, pady=20, command=lambda: button_click(7))
+scientific_8 = Button(frame_scientific, text="8", padx=40, pady=20, command=lambda: button_click(8))
+scientific_9 = Button(frame_scientific, text="9", padx=40, pady=20, command=lambda: button_click(9))
+scientific_mul = Button(frame_scientific, text="*", padx=40, pady=20, command=button_multiply_function)
 
-sci_4 = Button(frame_scientific, text="4", padx=40, pady=20, command=lambda: button_click(4))
-sci_5 = Button(frame_scientific, text="5", padx=40, pady=20, command=lambda: button_click(5))
-sci_6 = Button(frame_scientific, text="6", padx=40, pady=20, command=lambda: button_click(6))
-sci_sub = Button(frame_scientific, text="-", padx=40, pady=20, command=button_subtract)
+scientific_4 = Button(frame_scientific, text="4", padx=40, pady=20, command=lambda: button_click(4))
+scientific_5 = Button(frame_scientific, text="5", padx=40, pady=20, command=lambda: button_click(5))
+scientific_6 = Button(frame_scientific, text="6", padx=40, pady=20, command=lambda: button_click(6))
+scientific_sub = Button(frame_scientific, text="-", padx=40, pady=20, command=button_subtract_function)
 
-sci_1 = Button(frame_scientific, text="1", padx=40, pady=20, command=lambda: button_click(1))
-sci_2 = Button(frame_scientific, text="2", padx=40, pady=20, command=lambda: button_click(2))
-sci_3 = Button(frame_scientific, text="3", padx=40, pady=20, command=lambda: button_click(3))
-sci_add = Button(frame_scientific, text="+", padx=40, pady=20, command=button_add)
+scientific_1 = Button(frame_scientific, text="1", padx=40, pady=20, command=lambda: button_click(1))
+scientific_2 = Button(frame_scientific, text="2", padx=40, pady=20, command=lambda: button_click(2))
+scientific_3 = Button(frame_scientific, text="3", padx=40, pady=20, command=lambda: button_click(3))
+scientific_add = Button(frame_scientific, text="+", padx=40, pady=20, command=button_add_function)
 
-sci_neg = Button(frame_scientific, text="+/-", padx=40, pady=20, command=button_negate)
-sci_0 = Button(frame_scientific, text="0", padx=40, pady=20, command=lambda: button_click(0))
-sci_dot = Button(frame_scientific, text=".", padx=40, pady=20, command=button_dot)
-sci_eq = Button(frame_scientific, text="=", padx=40, pady=20, command=button_equal)
+scientific_neg = Button(frame_scientific, text="+/-", padx=40, pady=20, command=button_negate_function)
+scientific_0 = Button(frame_scientific, text="0", padx=40, pady=20, command=lambda: button_click(0))
+scientific_dot = Button(frame_scientific, text=".", padx=40, pady=20, command=button_dot_function)
+scientific_eq = Button(frame_scientific, text="=", padx=40, pady=20, command=button_equal_function)
 button_angle = Button(frame_scientific, text="RAD", padx=40, pady=20, command=toggle_angle_mode)
-sci_percent.grid(row=1, column=0, sticky="nsew")
-sci_CE.grid(row=1, column=1, sticky="nsew")
-sci_C.grid(row=1, column=2, sticky="nsew")
-sci_bs.grid(row=1, column=3, sticky="nsew")
+
+scientific_percent.grid(row=1, column=0, sticky="nsew")
+scientific_CE.grid(row=1, column=1, sticky="nsew")
+scientific_C.grid(row=1, column=2, sticky="nsew")
+scientific_bs.grid(row=1, column=3, sticky="nsew")
 button_angle.grid(row=1, column=4, sticky="nsew")
-sci_sin.grid(row=2, column=0, sticky="nsew")
-sci_cos.grid(row=2, column=1, sticky="nsew")
-sci_tan.grid(row=2, column=2, sticky="nsew")
-sci_ctg.grid(row=2, column=3, sticky="nsew")
 
-sci_log.grid(row=3, column=0, sticky="nsew")
-sci_ln.grid(row=3, column=1, sticky="nsew")
-sci_pow.grid(row=3, column=2, sticky="nsew")
-sci_mod.grid(row=3, column=3, sticky="nsew")
+scientific_sin.grid(row=2, column=0, sticky="nsew")
+scientific_cos.grid(row=2, column=1, sticky="nsew")
+scientific_tan.grid(row=2, column=2, sticky="nsew")
+scientific_ctg.grid(row=2, column=3, sticky="nsew")
 
-sci_abs.grid(row=4, column=0, sticky="nsew")
-sci_fact.grid(row=4, column=1, sticky="nsew")
-sci_recip.grid(row=4, column=2, sticky="nsew")
-sci_div.grid(row=4, column=3, sticky="nsew")
+scientific_log.grid(row=3, column=0, sticky="nsew")
+scientific_ln.grid(row=3, column=1, sticky="nsew")
+scientific_pow.grid(row=3, column=2, sticky="nsew")
+scientific_mod.grid(row=3, column=3, sticky="nsew")
 
-sci_7.grid(row=5, column=0, sticky="nsew")
-sci_8.grid(row=5, column=1, sticky="nsew")
-sci_9.grid(row=5, column=2, sticky="nsew")
-sci_mul.grid(row=5, column=3, sticky="nsew")
+scientific_abs.grid(row=4, column=0, sticky="nsew")
+scientific_fact.grid(row=4, column=1, sticky="nsew")
+scientific_reciprocal.grid(row=4, column=2, sticky="nsew")
+scientific_div.grid(row=4, column=3, sticky="nsew")
 
-sci_4.grid(row=6, column=0, sticky="nsew")
-sci_5.grid(row=6, column=1, sticky="nsew")
-sci_6.grid(row=6, column=2, sticky="nsew")
-sci_sub.grid(row=6, column=3, sticky="nsew")
+scientific_7.grid(row=5, column=0, sticky="nsew")
+scientific_8.grid(row=5, column=1, sticky="nsew")
+scientific_9.grid(row=5, column=2, sticky="nsew")
+scientific_mul.grid(row=5, column=3, sticky="nsew")
 
-sci_1.grid(row=7, column=0, sticky="nsew")
-sci_2.grid(row=7, column=1, sticky="nsew")
-sci_3.grid(row=7, column=2, sticky="nsew")
-sci_add.grid(row=7, column=3, sticky="nsew")
+scientific_4.grid(row=6, column=0, sticky="nsew")
+scientific_5.grid(row=6, column=1, sticky="nsew")
+scientific_6.grid(row=6, column=2, sticky="nsew")
+scientific_sub.grid(row=6, column=3, sticky="nsew")
 
-sci_neg.grid(row=8, column=0, sticky="nsew")
-sci_0.grid(row=8, column=1, sticky="nsew")
-sci_dot.grid(row=8, column=2, sticky="nsew")
-sci_eq.grid(row=8, column=3, sticky="nsew")
+scientific_1.grid(row=7, column=0, sticky="nsew")
+scientific_2.grid(row=7, column=1, sticky="nsew")
+scientific_3.grid(row=7, column=2, sticky="nsew")
+scientific_add.grid(row=7, column=3, sticky="nsew")
 
-button_pi_const.grid(row=2, column=4, sticky="nsew")
-button_e_const.grid(row=3, column=4, sticky="nsew")
+scientific_neg.grid(row=8, column=0, sticky="nsew")
+scientific_0.grid(row=8, column=1, sticky="nsew")
+scientific_dot.grid(row=8, column=2, sticky="nsew")
+scientific_eq.grid(row=8, column=3, sticky="nsew")
+
+button_pi.grid(row=2, column=4, sticky="nsew")
+button_e.grid(row=3, column=4, sticky="nsew")
 
 fit_window()
 root.resizable(False, False)
